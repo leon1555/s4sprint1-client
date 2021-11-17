@@ -1,11 +1,5 @@
 package com.keyin;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandlers;
 import java.util.Scanner;
 
 public class MainMenu {
@@ -13,16 +7,19 @@ public class MainMenu {
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Welcome to the Golf Country Club Database. Which table would you like to access? " +
-                "[m]embers or [t]ournaments: ");
+                "[m]embers or [t]ournaments (or [q]uit): ");
         while(true) {
             String tableSelection = scan.nextLine();
             if(tableSelection.equals("m")) {
-                // access members table
+                SubMenu.displayOptions("member");
                 System.out.println("Access members table");
                 break;
             } else if(tableSelection.equals("t")) {
-                // access tournaments table
+                SubMenu.displayOptions("tournament");
                 System.out.println("Access tournaments table");
+                break;
+            } else if(tableSelection.equals("q")) {
+                System.out.println("Keep on swinging!");
                 break;
             } else {
                 System.out.println(tableSelection);

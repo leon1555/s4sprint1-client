@@ -1,2 +1,4 @@
-package com.keyin;public class MembersMenu {
+package com.keyin;
+
+public class MembersMenu {
 }

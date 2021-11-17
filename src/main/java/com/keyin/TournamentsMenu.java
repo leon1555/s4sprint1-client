@@ -1,2 +1,4 @@
-package com.keyin;public class TournamentsMenu {
+package com.keyin;
+
+public class TournamentsMenu {
 }

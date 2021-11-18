@@ -11,12 +11,10 @@ public class MainMenu {
         while(true) {
             String tableSelection = scan.nextLine();
             if(tableSelection.equals("m")) {
-                SubMenu.displayOptions("member");
-                System.out.println("Access members table");
+                SubMenu.actionOptions("member");
                 break;
             } else if(tableSelection.equals("t")) {
-                SubMenu.displayOptions("tournament");
-                System.out.println("Access tournaments table");
+                SubMenu.actionOptions("tournament");
                 break;
             } else if(tableSelection.equals("q")) {
                 System.out.println("Keep on swinging!");

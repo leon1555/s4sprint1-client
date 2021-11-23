@@ -13,7 +13,7 @@ public class SubMenu {
             System.out.println("     [a]dd a new " + table);
             System.out.println("     [u]pdate an existing " + table);
             System.out.println("     [d]elete an existing " + table);
-            System.out.println("     [s]earch for a " + table);
+            System.out.println("     [s]earch for " + table + "s");
             String action = scan.nextLine();
             if (!action.equals("l") &&
                 !action.equals("a") &&
@@ -40,15 +40,19 @@ public class SubMenu {
                     break;
                 }
                 else if (actionTable.equals("stournament")) {
-                    // GET ONE tournament
+                    // search tournaments
                     break;
                 }
                 else if (actionTable.equals("lmember")) {
-                    RestClient.getAll("people");
+                    RestClient.getAll("member");
                     break;
                 }
                 else if (actionTable.equals("amember")) {
-                    // CREATE member
+                    System.out.println("Please enter a JSON object with the following keys:");
+                    System.out.println("firstName, lastName, address, email, phone, memberStartDate, memberType");
+                    Scanner postInput = new Scanner(System.in);
+                    String jsonObject = postInput.nextLine();
+                    RestClient.post(jsonObject);
                     break;
                 }
                 else if (actionTable.equals("umember")) {
@@ -60,8 +64,25 @@ public class SubMenu {
                     break;
                 }
                 else if (actionTable.equals("smember")) {
-                    // GET ONE member
-                    RestClient.getOneMember();
+                    System.out.println("Choose one of the following member search parameters:");
+                    System.out.println("      [1] Last name");
+                    System.out.println("      [2] First name");
+                    Scanner searchInput = new Scanner(System.in);
+                    int searchKeyInt = searchInput.nextInt();
+                    String searchKey;
+                    if(searchKeyInt == 1) {
+                        searchKey = "lastName";
+                    }
+                    else if(searchKeyInt == 2) {
+                        searchKey = "firstName";
+                    } else {
+                        searchKey = "lastName";
+                    }
+
+                    System.out.println("You chose to search by " + searchKey + ". Please enter your search terms: ");
+                    Scanner termsInput = new Scanner(System.in);
+                    String searchTerms = termsInput.nextLine();
+                    RestClient.searchMember(searchKey, searchTerms);
                     break;
                 }
             }

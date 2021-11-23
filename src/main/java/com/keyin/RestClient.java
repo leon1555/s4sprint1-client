@@ -26,12 +26,11 @@ public class RestClient {
         }
     }
 
-    public static void getOneMember() {
-        Scanner input =  new Scanner(System.in);
-        System.out.println("Please enter the ID number of the member you are searching for: ");
-        int memberID = input.nextInt();
+    public static void searchMember(String key, String terms) {
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/people/" + memberID)).build();
+        String keyCapital = key.substring(0, 1).toUpperCase() + key.substring(1);
+        String findByString = "findBy" + keyCapital + "?" + key + "=" + terms;
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/member/search/" + findByString)).build();
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode()==200) {
@@ -44,19 +43,21 @@ public class RestClient {
 
     }
 
-    public static void postMember() {
-        var uri = new URI("http://localhost.:8080/people");
-        Scanner input = new Scanner(System.in);
-        System.out.println("Please enter the last name of the new member: ");
-        String lastName = input.nextLine();
-        System.out.println("Please enter the first name of the new member: ");
-        String firstName = input.nextLine();
-        String postMessage = """
-                {"firstName": firstName,
-                "lastName": lastName}
-                """;
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder(uri).POST(BodyPublishers.ofString(postMessage))
-                .header("Content-type", "application/json").build();
+    public static void post (String jsonObject) {
+        HttpClient client = HttpClient.newBuilder().build();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:8080/member/"))
+                .POST(BodyPublishers.ofString(jsonObject))
+                .build();
+
+        HttpResponse<?> response = null;
+        try {
+            response = client.send(request, BodyHandlers.discarding());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(response.statusCode());
     }
 }

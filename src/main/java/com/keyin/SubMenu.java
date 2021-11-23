@@ -24,7 +24,7 @@ public class SubMenu {
             } else {
                 String actionTable = action + table;
                 if (actionTable.equals("ltournament")) {
-                    RestClient.getAll("people");
+                    RestClient.getAll("tournament");
                     break;
                 }
                 else if (actionTable.equals("atournament")) {

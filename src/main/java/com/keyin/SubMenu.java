@@ -52,11 +52,18 @@ public class SubMenu {
                     System.out.println("firstName, lastName, address, email, phone, memberStartDate, memberType");
                     Scanner postInput = new Scanner(System.in);
                     String jsonObject = postInput.nextLine();
-                    RestClient.post(jsonObject);
+                    RestClient.postMember(jsonObject);
                     break;
                 }
                 else if (actionTable.equals("umember")) {
-                    // UPDATE member
+                    System.out.println("Please enter the ID of the member record you'd like to update:");
+                    Scanner putIdInput = new Scanner(System.in);
+                    int putId = putIdInput.nextInt();
+                    System.out.println("Please enter a an updated JSON object for member ID " + putId + " with the following keys:");
+                    System.out.println("firstName, lastName, address, email, phone, memberStartDate, memberType");
+                    Scanner putInput = new Scanner(System.in);
+                    String putJsonObject = putInput.nextLine();
+                    RestClient.putMember(putId, putJsonObject);
                     break;
                 }
                 else if (actionTable.equals("dmember")) {

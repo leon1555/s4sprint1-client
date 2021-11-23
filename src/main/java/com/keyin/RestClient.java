@@ -9,7 +9,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse.BodyHandlers;
-import java.util.Scanner;
 
 public class RestClient {
     public static void getAll(String table) {
@@ -43,13 +42,12 @@ public class RestClient {
 
     }
 
-    public static void post (String jsonObject) {
+    public static void postMember(String jsonObject) {
         HttpClient client = HttpClient.newBuilder().build();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8080/member/"))
                 .POST(BodyPublishers.ofString(jsonObject))
                 .build();
-
         HttpResponse<?> response = null;
         try {
             response = client.send(request, BodyHandlers.discarding());
@@ -59,5 +57,17 @@ public class RestClient {
             e.printStackTrace();
         }
         System.out.println(response.statusCode());
+    }
+
+    public static void putMember(int id, String jsonObject) {
+        // Tried to implement a PUT request with HttpClient, but I couldn't figure out how to make it work.
+        // The problem might be related to the fact that both the Spring Boot RepositoryRestResource and HttpClient
+        // seem to require a PUT request to be sent not as plain text but rather as application/json.
+        // I didn't have time to figure out how to convert the user's inputted string to a JSON object.
+        System.out.println("Computer says no! Please do the update request through Postman following these steps:");
+        System.out.println("     Select PUT from the drop down menu.");
+        System.out.println("     Navigate to localhost:8080/member/" + id + ".");
+        System.out.println("     Copy and paste the following JSON object: " + jsonObject);
+
     }
 }

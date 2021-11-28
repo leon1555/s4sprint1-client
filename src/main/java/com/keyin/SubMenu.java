@@ -28,19 +28,51 @@ public class SubMenu {
                     break;
                 }
                 else if (actionTable.equals("atournament")) {
-                    // CREATE tournament
+                    System.out.println("Please enter a JSON object with the following keys:");
+                    System.out.println("name, start, end, location, fee, prize");
+                    Scanner postInput = new Scanner(System.in);
+                    String jsonObject = postInput.nextLine();
+                    RestClient.postTournament(jsonObject);
                     break;
                 }
                 else if (actionTable.equals("utournament")) {
-                    // UPDATE tournament
+                    System.out.println("Please enter the ID of the tournament you'd like to update:");
+                    Scanner putIdInput = new Scanner(System.in);
+                    int putId = putIdInput.nextInt();
+                    System.out.println("Please enter a an updated JSON object for tournament ID " + putId + " with the following keys:");
+                    System.out.println("name, start, end, location, fee, prize");
+                    Scanner putInput = new Scanner(System.in);
+                    String putJsonObject = putInput.nextLine();
+                    RestClient.putTournament(putId, putJsonObject);
                     break;
                 }
                 else if (actionTable.equals("dtournament")) {
-                    // DELETE tournament
+                    System.out.println("Please enter the ID of the tournament record you'd like to delete:");
+                    Scanner deleteIdInput = new Scanner(System.in);
+                    int deleteId = deleteIdInput.nextInt();
+                    RestClient.deleteTournament(deleteId);
                     break;
                 }
                 else if (actionTable.equals("stournament")) {
-                    // search tournaments
+                    System.out.println("Choose one of the following member search parameters:");
+                    System.out.println("      [1] name");
+                    System.out.println("      [2] location");
+                    Scanner searchInput = new Scanner(System.in);
+                    int searchKeyInt = searchInput.nextInt();
+                    String searchKey;
+                    if(searchKeyInt == 1) {
+                        searchKey = "name";
+                    }
+                    else if(searchKeyInt == 2) {
+                        searchKey = "location";
+                    } else {
+                        searchKey = "name";
+                    }
+
+                    System.out.println("You chose to search by " + searchKey + ". Please enter your search terms: ");
+                    Scanner termsInput = new Scanner(System.in);
+                    String searchTerms = termsInput.nextLine();
+                    RestClient.searchTournament(searchKey, searchTerms);
                     break;
                 }
                 else if (actionTable.equals("lmember")) {
@@ -67,7 +99,10 @@ public class SubMenu {
                     break;
                 }
                 else if (actionTable.equals("dmember")) {
-                    // DELETE member
+                    System.out.println("Please enter the ID of the member record you'd like to delete:");
+                    Scanner deleteIdInput = new Scanner(System.in);
+                    int deleteId = deleteIdInput.nextInt();
+                    RestClient.deleteMember(deleteId);
                     break;
                 }
                 else if (actionTable.equals("smember")) {

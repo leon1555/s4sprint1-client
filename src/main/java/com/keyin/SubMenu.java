@@ -52,14 +52,25 @@ public class SubMenu {
                     break;
                 }
                 else if (actionTable.equals("utournament")) {
+                    int id, fee, prize;
+                    String name, start, end, location;
                     System.out.println("Please enter the ID of the tournament you'd like to update:");
-                    Scanner putIdInput = new Scanner(System.in);
-                    int putId = putIdInput.nextInt();
-                    System.out.println("Please enter a an updated JSON object for tournament ID " + putId + " with the following keys:");
-                    System.out.println("name, start, end, location, fee, prize");
+                    Scanner putInputId = new Scanner(System.in);
+                    id = putInputId.nextInt();
+                    System.out.println("Please enter the tournament name:");
                     Scanner putInput = new Scanner(System.in);
-                    String putJsonObject = putInput.nextLine();
-                    RestClient.putTournament(putId, putJsonObject);
+                    name = putInput.nextLine();
+                    System.out.println("Please enter the start date:");
+                    start = putInput.nextLine();
+                    System.out.println("Please enter the end date:");
+                    end = putInput.nextLine();
+                    System.out.println("Please enter the location:");
+                    location = putInput.nextLine();
+                    System.out.println("Please enter the entry fee in dollars:");
+                    fee = putInput.nextInt();
+                    System.out.println("Please enter the prize value in dollars:");
+                    prize = putInput.nextInt();
+                    RestClient.putTournament(id, name, start, end, location, fee, prize);
                     break;
                 }
                 else if (actionTable.equals("dtournament")) {
@@ -117,14 +128,27 @@ public class SubMenu {
                     break;
                 }
                 else if (actionTable.equals("umember")) {
+                    int id;
+                    String firstName, lastName, address, email, phone, memberStartDate, memberType;
                     System.out.println("Please enter the ID of the member record you'd like to update:");
                     Scanner putIdInput = new Scanner(System.in);
-                    int putId = putIdInput.nextInt();
-                    System.out.println("Please enter a an updated JSON object for member ID " + putId + " with the following keys:");
-                    System.out.println("firstName, lastName, address, email, phone, memberStartDate, memberType");
+                    id = putIdInput.nextInt();
+                    System.out.println("Please enter the first name:");
                     Scanner putInput = new Scanner(System.in);
-                    String putJsonObject = putInput.nextLine();
-                    RestClient.putMember(putId, putJsonObject);
+                    firstName = putInput.nextLine();
+                    System.out.println("Please enter the last name:");
+                    lastName = putInput.nextLine();
+                    System.out.println("Please enter the address:");
+                    address = putInput.nextLine();
+                    System.out.println("Please enter the email:");
+                    email = putInput.nextLine();
+                    System.out.println("Please enter the phone number:");
+                    phone = putInput.nextLine();
+                    System.out.println("Please enter the membership start date (YYYY-MM-DD):");
+                    memberStartDate = putInput.nextLine();
+                    System.out.println("Please enter the membership type:");
+                    memberType = putInput.nextLine();
+                    RestClient.putMember(id, firstName, lastName, address, email, phone, memberStartDate, memberType);
                     break;
                 }
                 else if (actionTable.equals("dmember")) {
@@ -138,6 +162,7 @@ public class SubMenu {
                     System.out.println("Choose one of the following member search parameters:");
                     System.out.println("      [1] Last name");
                     System.out.println("      [2] First name");
+                    System.out.println("      [3] Phone number");
                     Scanner searchInput = new Scanner(System.in);
                     int searchKeyInt = searchInput.nextInt();
                     String searchKey;
@@ -146,7 +171,10 @@ public class SubMenu {
                     }
                     else if(searchKeyInt == 2) {
                         searchKey = "firstName";
-                    } else {
+                    } else if(searchKeyInt == 3) {
+                        searchKey = "phone";
+                    }
+                      else {
                         searchKey = "lastName";
                     }
 

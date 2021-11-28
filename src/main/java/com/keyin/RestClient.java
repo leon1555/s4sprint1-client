@@ -8,6 +8,11 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse.BodyHandlers;
 
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class RestClient {
     public static void getAll(String table) {
         HttpClient client = HttpClient.newHttpClient();
@@ -40,21 +45,33 @@ public class RestClient {
 
     }
 
-    public static void postMember(String jsonObject) {
-        HttpClient client = HttpClient.newBuilder().build();
+    public static void postMember(String firstName, String lastName, String address, String email, String phone, String memberStartDate, String memberType) throws IOException, InterruptedException {
+        Map<Object, Object> people = new HashMap<>();
+        people.put("firstName", firstName);
+        people.put("lastName", lastName);
+        people.put("address", address);
+        people.put("email", email);
+        people.put("phone", phone);
+        people.put("memberStartDate", memberStartDate);
+        people.put("memberType", memberType);
+
+        ObjectMapper posted = new ObjectMapper();
+        String requestBody = posted.writeValueAsString(people);
+
+        HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/member/"))
-                .POST(BodyPublishers.ofString(jsonObject))
+                .uri(URI.create("http://localhost:8080/member"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
-        HttpResponse<?> response = null;
         try {
-            response = client.send(request, BodyHandlers.discarding());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() == 201) {
+                System.out.println("New record created!");
+            }
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(response.statusCode());
     }
 
     public static void putMember(int id, String jsonObject) {
@@ -86,21 +103,32 @@ public class RestClient {
         }
     }
 
-    public static void postTournament(String jsonObject) {
-        HttpClient client = HttpClient.newBuilder().build();
+    public static void postTournament(String name, String start, String end, String location, int fee, int prize) throws IOException, InterruptedException {
+        Map<Object, Object> people = new HashMap<>();
+        people.put("name", name);
+        people.put("start", start);
+        people.put("end", end);
+        people.put("location", location);
+        people.put("fee", fee);
+        people.put("prize", prize);
+
+        ObjectMapper posted = new ObjectMapper();
+        String requestBody = posted.writeValueAsString(people);
+
+        HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/tournament/"))
-                .POST(BodyPublishers.ofString(jsonObject))
+                .uri(URI.create("http://localhost:8080/tournament"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
-        HttpResponse<?> response = null;
         try {
-            response = client.send(request, BodyHandlers.discarding());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() == 201) {
+                System.out.println("New record created!");
+            }
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(response.statusCode());
     }
 
     public static void putTournament(int id, String jsonObject) {
@@ -148,4 +176,5 @@ public class RestClient {
         }
 
     }
+
 }

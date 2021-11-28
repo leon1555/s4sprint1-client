@@ -1,10 +1,14 @@
 package com.keyin;
 
+import net.bytebuddy.asm.Advice;
+
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class SubMenu {
 
-    public static void actionOptions(String table) {
+    public static void actionOptions(String table) throws IOException, InterruptedException {
 
         while (true) {
             Scanner scan = new Scanner(System.in);
@@ -28,11 +32,23 @@ public class SubMenu {
                     break;
                 }
                 else if (actionTable.equals("atournament")) {
-                    System.out.println("Please enter a JSON object with the following keys:");
-                    System.out.println("name, start, end, location, fee, prize");
+                    String name, start, end, location;
+                    int fee, prize;
+                    System.out.println("New Tournament Record:");
+                    System.out.println("Please enter the tournament name:");
                     Scanner postInput = new Scanner(System.in);
-                    String jsonObject = postInput.nextLine();
-                    RestClient.postTournament(jsonObject);
+                    name = postInput.nextLine();
+                    System.out.println("Please enter the start date:");
+                    start = postInput.nextLine();
+                    System.out.println("Please enter the end date:");
+                    end = postInput.nextLine();
+                    System.out.println("Please enter the location:");
+                    location = postInput.nextLine();
+                    System.out.println("Please enter the entry fee in dollars:");
+                    fee = postInput.nextInt();
+                    System.out.println("Please enter the prize value in dollars:");
+                    prize = postInput.nextInt();
+                    RestClient.postTournament(name, start, end, location, fee, prize);
                     break;
                 }
                 else if (actionTable.equals("utournament")) {
@@ -80,11 +96,24 @@ public class SubMenu {
                     break;
                 }
                 else if (actionTable.equals("amember")) {
-                    System.out.println("Please enter a JSON object with the following keys:");
-                    System.out.println("firstName, lastName, address, email, phone, memberStartDate, memberType");
+                    String firstName, lastName, address, email, phone, memberStartDate, memberType;
+                    System.out.println("New Member Record:");
+                    System.out.println("Please enter the first name:");
                     Scanner postInput = new Scanner(System.in);
-                    String jsonObject = postInput.nextLine();
-                    RestClient.postMember(jsonObject);
+                    firstName = postInput.nextLine();
+                    System.out.println("Please enter the last name:");
+                    lastName = postInput.nextLine();
+                    System.out.println("Please enter the address:");
+                    address = postInput.nextLine();
+                    System.out.println("Please enter the email:");
+                    email = postInput.nextLine();
+                    System.out.println("Please enter the phone number:");
+                    phone = postInput.nextLine();
+                    System.out.println("Please enter the membership start date (YYYY-MM-DD):");
+                    memberStartDate = postInput.nextLine();
+                    System.out.println("Please enter the membership type:");
+                    memberType = postInput.nextLine();
+                    RestClient.postMember(firstName, lastName, address, email, phone, memberStartDate, memberType);
                     break;
                 }
                 else if (actionTable.equals("umember")) {

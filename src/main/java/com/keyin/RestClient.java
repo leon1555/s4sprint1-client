@@ -46,17 +46,17 @@ public class RestClient {
     }
 
     public static void postMember(String firstName, String lastName, String address, String email, String phone, String memberStartDate, String memberType) throws IOException, InterruptedException {
-        Map<Object, Object> people = new HashMap<>();
-        people.put("firstName", firstName);
-        people.put("lastName", lastName);
-        people.put("address", address);
-        people.put("email", email);
-        people.put("phone", phone);
-        people.put("memberStartDate", memberStartDate);
-        people.put("memberType", memberType);
+        Map<Object, Object> member = new HashMap<>();
+        member.put("firstName", firstName);
+        member.put("lastName", lastName);
+        member.put("address", address);
+        member.put("email", email);
+        member.put("phone", phone);
+        member.put("memberStartDate", memberStartDate);
+        member.put("memberType", memberType);
 
         ObjectMapper posted = new ObjectMapper();
-        String requestBody = posted.writeValueAsString(people);
+        String requestBody = posted.writeValueAsString(member);
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -104,16 +104,16 @@ public class RestClient {
     }
 
     public static void postTournament(String name, String start, String end, String location, int fee, int prize) throws IOException, InterruptedException {
-        Map<Object, Object> people = new HashMap<>();
-        people.put("name", name);
-        people.put("start", start);
-        people.put("end", end);
-        people.put("location", location);
-        people.put("fee", fee);
-        people.put("prize", prize);
+        Map<Object, Object> tournament = new HashMap<>();
+        tournament.put("name", name);
+        tournament.put("start", start);
+        tournament.put("end", end);
+        tournament.put("location", location);
+        tournament.put("fee", fee);
+        tournament.put("prize", prize);
 
         ObjectMapper posted = new ObjectMapper();
-        String requestBody = posted.writeValueAsString(people);
+        String requestBody = posted.writeValueAsString(tournament);
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()

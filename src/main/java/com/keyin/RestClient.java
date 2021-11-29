@@ -29,8 +29,9 @@ public class RestClient {
         HttpClient client = HttpClient.newHttpClient();
         String keyCapital = key.substring(0, 1).toUpperCase() + key.substring(1);
         String findByString;
+        String termsNoSpace = terms.replace(' ', '+');
         if(key != "membershipType") {
-            findByString = "findBy" + keyCapital + "?" + key + "=" + terms;
+            findByString = "findBy" + keyCapital + "?" + key + "=" + termsNoSpace;
         } else {
             findByString = "findMemberByMembershipTypeMembershipType?" + key + "=" + terms;
         }
@@ -203,7 +204,8 @@ public class RestClient {
     public static void searchTournament(String key, String terms) {
         HttpClient client = HttpClient.newHttpClient();
         String keyCapital = key.substring(0, 1).toUpperCase() + key.substring(1);
-        String findByString = "findBy" + keyCapital + "?" + key + "=" + terms;
+        String termsNoSpace = terms.replace(' ', '+');
+        String findByString = "findBy" + keyCapital + "?" + key + "=" + termsNoSpace;
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/tournament/search/" + findByString)).build();
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());

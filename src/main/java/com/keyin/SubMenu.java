@@ -107,7 +107,8 @@ public class SubMenu {
                     break;
                 }
                 else if (actionTable.equals("amember")) {
-                    String firstName, lastName, address, email, phone, memberStartDate, memberType;
+                    String firstName, lastName, address, email, phone, memberStartDate;
+                    int membershipType;
                     System.out.println("New Member Record:");
                     System.out.println("Please enter the first name:");
                     Scanner postInput = new Scanner(System.in);
@@ -123,8 +124,13 @@ public class SubMenu {
                     System.out.println("Please enter the membership start date (YYYY-MM-DD):");
                     memberStartDate = postInput.nextLine();
                     System.out.println("Please enter the membership type:");
-                    memberType = postInput.nextLine();
-                    RestClient.postMember(firstName, lastName, address, email, phone, memberStartDate, memberType);
+                    System.out.println("     [1] normal");
+                    System.out.println("     [2] family");
+                    System.out.println("     [3] trial");
+                    System.out.println("     [4] special");
+                    System.out.println("     [5] other");
+                    membershipType = postInput.nextInt();
+                    RestClient.postMember(firstName, lastName, address, email, phone, memberStartDate, membershipType);
                     break;
                 }
                 else if (actionTable.equals("umember")) {

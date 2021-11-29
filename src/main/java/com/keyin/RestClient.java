@@ -48,7 +48,7 @@ public class RestClient {
     }
 
     public static void postMember(String firstName, String lastName, String address, String email, String phone,
-                                  String memberStartDate, String memberType) throws IOException, InterruptedException {
+                                  String memberStartDate, int membershipTypeId) throws IOException, InterruptedException {
         Map<Object, Object> member = new HashMap<>();
         member.put("firstName", firstName);
         member.put("lastName", lastName);
@@ -56,7 +56,7 @@ public class RestClient {
         member.put("email", email);
         member.put("phone", phone);
         member.put("memberStartDate", memberStartDate);
-        member.put("memberType", memberType);
+        member.put("membershipTypeId", membershipTypeId);
 
         ObjectMapper posted = new ObjectMapper();
         String requestBody = posted.writeValueAsString(member);
@@ -77,17 +77,6 @@ public class RestClient {
         }
     }
 
-//    public static void putMember(int id, String jsonObject) {
-//        // Tried to implement a PUT request with HttpClient, but I couldn't figure out how to make it work.
-//        // The problem might be related to the fact that both the Spring Boot RepositoryRestResource and HttpClient
-//        // seem to require a PUT request to be sent not as plain text but rather as application/json.
-//        // I didn't have time to figure out how to convert the user's inputted string to a JSON object.
-//        System.out.println("Computer says no! Please do the update request through Postman following these steps:");
-//        System.out.println("     Select PUT from the drop down menu.");
-//        System.out.println("     Navigate to localhost:8080/member/" + id + ".");
-//        System.out.println("     Copy and paste the following JSON object: " + jsonObject);
-//
-//    }
     public static void putMember(int id, String firstName, String lastName, String address, String email, String phone,
                                   String memberStartDate, String memberType) throws IOException, InterruptedException {
         Map<Object, Object> member = new HashMap<>();

@@ -1,9 +1,6 @@
 package com.keyin;
 
-import net.bytebuddy.asm.Advice;
-
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class SubMenu {
@@ -174,6 +171,7 @@ public class SubMenu {
                     System.out.println("      [1] Last name");
                     System.out.println("      [2] First name");
                     System.out.println("      [3] Phone number");
+                    System.out.println("      [4] Membership Type");
                     Scanner searchInput = new Scanner(System.in);
                     int searchKeyInt = searchInput.nextInt();
                     String searchKey;
@@ -184,12 +182,18 @@ public class SubMenu {
                         searchKey = "firstName";
                     } else if(searchKeyInt == 3) {
                         searchKey = "phone";
+                    } else if(searchKeyInt == 4) {
+                        searchKey = "membershipType";
                     }
                       else {
                         searchKey = "lastName";
                     }
 
                     System.out.println("You chose to search by " + searchKey + ". Please enter your search terms: ");
+                      if(searchKey == "membershipType") {
+                          System.out.println("Reminder: categories for membership type are: " +
+                                  "normal, family, trial, special, other.");
+                      }
                     Scanner termsInput = new Scanner(System.in);
                     String searchTerms = termsInput.nextLine();
                     RestClient.searchMember(searchKey, searchTerms);

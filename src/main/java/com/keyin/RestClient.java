@@ -5,10 +5,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.net.http.HttpRequest.BodyPublishers;
-import java.net.http.HttpResponse.BodyHandlers;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,7 +28,12 @@ public class RestClient {
     public static void searchMember(String key, String terms) {
         HttpClient client = HttpClient.newHttpClient();
         String keyCapital = key.substring(0, 1).toUpperCase() + key.substring(1);
-        String findByString = "findBy" + keyCapital + "?" + key + "=" + terms;
+        String findByString;
+        if(key != "membershipType") {
+            findByString = "findBy" + keyCapital + "?" + key + "=" + terms;
+        } else {
+            findByString = "findMemberByMembershipTypeMembershipType?" + key + "=" + terms;
+        }
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8080/member/search/" + findByString))
                 .build();

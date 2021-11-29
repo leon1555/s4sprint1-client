@@ -134,8 +134,8 @@ public class SubMenu {
                     break;
                 }
                 else if (actionTable.equals("umember")) {
-                    int id;
-                    String firstName, lastName, address, email, phone, memberStartDate, memberType;
+                    int id, memberType;
+                    String firstName, lastName, address, email, phone, memberStartDate;
                     System.out.println("Please enter the ID of the member record you'd like to update:");
                     Scanner putIdInput = new Scanner(System.in);
                     id = putIdInput.nextInt();
@@ -153,7 +153,12 @@ public class SubMenu {
                     System.out.println("Please enter the membership start date (YYYY-MM-DD):");
                     memberStartDate = putInput.nextLine();
                     System.out.println("Please enter the membership type:");
-                    memberType = putInput.nextLine();
+                    System.out.println("     [1] normal");
+                    System.out.println("     [2] family");
+                    System.out.println("     [3] trial");
+                    System.out.println("     [4] special");
+                    System.out.println("     [5] other");
+                    memberType = putInput.nextInt();
                     RestClient.putMember(id, firstName, lastName, address, email, phone, memberStartDate, memberType);
                     break;
                 }

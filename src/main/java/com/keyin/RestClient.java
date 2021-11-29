@@ -78,7 +78,7 @@ public class RestClient {
     }
 
     public static void putMember(int id, String firstName, String lastName, String address, String email, String phone,
-                                  String memberStartDate, String memberType) throws IOException, InterruptedException {
+                                  String memberStartDate, int memberTypeId) throws IOException, InterruptedException {
         Map<Object, Object> member = new HashMap<>();
         member.put("firstName", firstName);
         member.put("lastName", lastName);
@@ -86,7 +86,7 @@ public class RestClient {
         member.put("email", email);
         member.put("phone", phone);
         member.put("memberStartDate", memberStartDate);
-        member.put("memberType", memberType);
+        member.put("membershipTypeId", memberTypeId);
 
         ObjectMapper posted = new ObjectMapper();
         String requestBody = posted.writeValueAsString(member);
@@ -99,7 +99,7 @@ public class RestClient {
                 .build();
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode() == 202) {
+            if (response.statusCode() == 200) {
                 System.out.println("Record updated!");
             }
         } catch (IOException | InterruptedException e) {
